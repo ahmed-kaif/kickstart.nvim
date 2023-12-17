@@ -188,6 +188,31 @@ require('lazy').setup({
       end,
     },
   },
+   { "CRAG666/code_runner.nvim",
+   config = function()
+     require('code_runner').setup({
+       filetype = {
+         java = {
+           "cd $dir &&",
+           "javac $fileName &&",
+           "java $fileNameWithoutExt"
+         },
+         cpp = {
+            "cd $dir &&",
+            "g++ $fileName -o $fileNameWithoutExt &&",
+            "$dir/$fileNameWithoutExt"
+         },
+         python = "python3 -u",
+         typescript = "deno run",
+         rust = {
+           "cd $dir &&",
+           "rustc $fileName &&",
+           "$dir/$fileNameWithoutExt"
+         },
+       },
+     })
+   end,
+ },
 
   --[[  {
     -- Theme inspired by Atom
@@ -383,6 +408,16 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- code Runner 
+
+vim.keymap.set('n', '<leader>run', ':RunCode<CR>', { noremap = true, silent = false })
+vim.keymap.set('n', '<leader>rf', ':RunFile<CR>', { noremap = true, silent = false })
+vim.keymap.set('n', '<leader>rft', ':RunFile tab<CR>', { noremap = true, silent = false })
+vim.keymap.set('n', '<leader>rp', ':RunProject<CR>', { noremap = true, silent = false })
+vim.keymap.set('n', '<leader>rc', ':RunClose<CR>', { noremap = true, silent = false })
+vim.keymap.set('n', '<leader>crf', ':CRFiletype<CR>', { noremap = true, silent = false })
+vim.keymap.set('n', '<leader>crp', ':CRProjects<CR>', { noremap = true, silent = false })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
