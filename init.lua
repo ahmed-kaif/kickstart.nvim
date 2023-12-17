@@ -205,8 +205,7 @@ require('lazy').setup({
       config = function()
         vim.cmd.colorscheme "catppuccin"
       end,
-  }
-  
+  },
 
   {
     -- Set lualine as statusline
