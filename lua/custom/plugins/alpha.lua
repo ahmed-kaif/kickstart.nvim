@@ -1,7 +1,7 @@
 local M = {}
 local alpha = require("alpha")
 local dashboard = require("alpha.themes.dashboard")
-
+local fortune = require("alpha.fortune")
 -- Set header
 dashboard.section.header.val = {
     "                                                     ",
@@ -37,7 +37,7 @@ dashboard.section.buttons.val = {
 --   end)
 --   ```
 -- local fortune = require("alpha.fortune") 
--- dashboard.section.footer.val = fortune()
+dashboard.section.footer.val = fortune()
 
 -- Send config to alpha
 alpha.setup(dashboard.opts)
