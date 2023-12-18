@@ -2,4 +2,57 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  {
+    'goolord/alpha-nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.startify'.config)
+    end
+  },
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+  { "CRAG666/code_runner.nvim",
+    config = function()
+      require('code_runner').setup({
+        filetype = {
+          java = {
+            "cd $dir &&",
+            "javac $fileName &&",
+            "java $fileNameWithoutExt"
+          },
+          cpp = {
+            "cd $dir &&",
+            "g++ $fileName -o $fileNameWithoutExt &&",
+            "$dir/$fileNameWithoutExt"
+          },
+          python = "python3 -u",
+          typescript = "deno run",
+          rust = {
+            "cd $dir &&",
+            "rustc $fileName &&",
+            "$dir/$fileNameWithoutExt"
+          },
+        },
+      })
+    end,
+  },
+}
