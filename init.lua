@@ -196,6 +196,28 @@ require('lazy').setup({
       end,
     },
   },
+  -- Custom plugins 
+  --
+    {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
    { "CRAG666/code_runner.nvim",
    config = function()
      require('code_runner').setup({
@@ -346,6 +368,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
