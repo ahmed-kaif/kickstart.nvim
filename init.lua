@@ -88,7 +88,15 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',
+        opts = {
+          notification = {
+            window = {
+              winblend = 0,
+            }
+          }
+        }
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -263,13 +271,19 @@ require('lazy').setup({
         custom_highlights = {},
         integrations = {
           cmp = true,
+          fidget = true,
           gitsigns = true,
           nvimtree = true,
           treesitter = true,
-          notify = false,
+          notify = true,
+          mason = true,
           mini = {
             enabled = true,
             indentscope_color = "",
+          },
+          telescope = {
+            enabled = true,
+            style = "classic"
           },
         },
       })
