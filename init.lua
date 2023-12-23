@@ -410,6 +410,34 @@ vim.keymap.set('n', '<leader>rc', ':RunClose<CR>', { noremap = true, silent = fa
 vim.keymap.set('n', '<leader>crf', ':CRFiletype<CR>', { noremap = true, silent = false })
 vim.keymap.set('n', '<leader>crp', ':CRProjects<CR>', { noremap = true, silent = false })
 
+
+-- Knap latex
+-- set shorter name for keymap function
+-- F5 processes the document once, and refreshes the view
+vim.keymap.set({ 'n', 'v', 'i' },'<F5>', function() require("knap").process_once() end)
+
+-- F6 closes the viewer application, and allows settings to be reset
+vim.keymap.set({ 'n', 'v', 'i' },'<F6>', function() require("knap").close_viewer() end)
+
+-- F7 toggles the auto-processing on and off
+vim.keymap.set({ 'n', 'v', 'i' },'<F7>', function() require("knap").toggle_autopreviewing() end)
+
+-- F8 invokes a SyncTeX forward search, or similar, where appropriate
+vim.keymap.set({ 'n', 'v', 'i' },'<F8>', function() require("knap").forward_jump() end)
+
+
+-- [[ Knap settings ]]
+local gknapsettings = {
+    texoutputext = "pdf",
+    textopdf = "pdflatex -shell-escape -interaction=batchmode -halt-on-error -synctex=1 %docroot%",
+    textopdfviewerlaunch = "sioyek --inverse-search 'nvim --headless -es --cmd \"lua require('\"'\"'knaphelper'\"'\"').relayjump('\"'\"'%servername%'\"'\"','\"'\"'%1'\"'\"',%2,%3)\"' --new-window %outputfile%",
+    textopdfviewerrefresh = "none",
+    textopdfforwardjump = "sioyek --inverse-search 'nvim --headless -es --cmd \"lua require('\"'\"'knaphelper'\"'\"').relayjump('\"'\"'%servername%'\"'\"','\"'\"'%1'\"'\"',%2,%3)\"' --reuse-window --forward-search-file %srcfile% --forward-search-line %line% %outputfile%",
+    textopdfshorterror = "A=%outputfile% ; LOGFILE=\"${A%.pdf}.log\" ; rubber-info \"$LOGFILE\" 2>&1 | head -n 1",
+    delay = 250}
+vim.g.knap_settings = gknapsettings
+
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

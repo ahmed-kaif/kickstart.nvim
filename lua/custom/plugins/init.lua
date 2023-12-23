@@ -69,4 +69,7 @@ return {
       }
     end
   },
+  {
+    'frabjous/knap';
+  },
 }
